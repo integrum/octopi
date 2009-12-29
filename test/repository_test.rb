@@ -118,6 +118,18 @@ class RepositoryTest < Test::Unit::TestCase
         Repository.create(:name => "octopus")
       end
     end
+
+    should "not be able to add a collaborator to a repository when not authed" do
+      assert_raise Octopi::AuthenticationRequired do
+        @repository.add_collaborator('collabdude')
+      end
+    end
+
+    should "be able to add a collaborator to a repository " do
+      auth do
+        p @repository.add_collaborator('collabdude')
+      end
+    end
     
     should "be able to retrieve the branches" do
       branches = @repository.branches

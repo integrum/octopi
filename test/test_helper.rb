@@ -238,6 +238,9 @@ def fake_everything
   
   
   FakeWeb.register_uri(:get, "http://github.com/fcoury/octopi/comments.atom", :response => stub_file("comments", "fcoury", "octopi", "comments.atom"))
+  
+  FakeWeb.register_uri(:post, "https://#{yaml_api}/repos/collaborators/octopi/add/collabdude" + auth_query, :response => stub_file(File.join('repos', 'collaborators', 'fcoury', 'add')))
+  
 end
 
 

@@ -124,6 +124,16 @@ module Octopi
       Api.api.post(self.class.path_for(:delete), :id => self.name, :delete_token => token) unless token.nil?
     end
     
+    def add_collaborator(user)
+      raise AuthenticationRequired, "To add a collaborator to repository you must be authenticated." if Api.api.read_only?
+      Api.api.post('/repos/collaborators/:repo/add/:user', :repo => name, :user => user)
+    end
+
+    def remove_collaborator(user)
+      raise AuthenticationRequired, "To remove a collaborator from repository you must be authenticated." if Api.api.read_only?
+      Api.api.post('/repos/collaborators/:repo/remove/:user', :repo => name, :user => user)
+    end
+    
     def to_s
       name
     end
